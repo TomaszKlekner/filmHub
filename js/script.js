@@ -11,6 +11,7 @@ const options = {
   },
 };
 
+// I'm fully aware you should not store keys and secrets in code or github, but this is just for training purpouse, and it's a public API with no critical data
 const API_KEY = 'ffb0f51f7d9b60020eaa9dff5cea2791';
 const API_URL = 'https://api.themoviedb.org/3/';
 
@@ -53,9 +54,20 @@ async function getPopularMovies() {
 
 // Fetch Data from API
 async function fetchAPIData(endpoint) {
+  showSpinner();
   const response = await fetch(`${API_URL}${endpoint}?language=en-US`, options);
   const data = await response.json();
+  hideSpinner();
   return data;
+}
+
+// Toggle Spinner
+function showSpinner() {
+  document.querySelector('.spinner').classList.add('show');
+}
+
+function hideSpinner() {
+  document.querySelector('.spinner').classList.remove('show');
 }
 
 // Active Link
