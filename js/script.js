@@ -54,7 +54,7 @@ async function getPopularMovies() {
 
 // Fetch TV shows
 async function getTVShows() {
-  const { results } = await fetchAPIData('tv/popular');
+  const { results } = await fetchAPIData('tv/top_rated');
 
   console.log(results);
 
@@ -94,7 +94,7 @@ async function getTVShows() {
   });
 }
 
-// Display Mobie Details
+// Display Movie Details
 async function getMovieDetails() {
   const movieId = window.location.search.split('=')[1];
   const movie = await fetchAPIData(`movie/${movieId}?language=en-US`);
@@ -120,7 +120,7 @@ async function getMovieDetails() {
         <h2>${movie.title}</h2>
         <p>
           <i class="fas fa-star text-primary"></i>
-          ${movie.vote_average}
+          ${movie.vote_average} / 10
         </p>
         <p class="text-muted">Release Date: ${movie.release_date}</p>
         <p>
@@ -160,10 +160,10 @@ async function getMovieDetails() {
   document.getElementById('movie-details').appendChild(div);
 }
 
-// Display Mobie Details
-async function getShowDetails() {
+// Display TV Show Details
+async function getTVShowDetails() {
   const showId = window.location.search.split('=')[1];
-  const show = await fetchAPIData(`movie/${showId}?language=en-US`);
+  const show = await fetchAPIData(`tv/${showId}?language=en-US`);
   console.log(show);
 
   // Overlay for background image
@@ -186,9 +186,12 @@ async function getShowDetails() {
         <h2>${show.name}</h2>
         <p>
           <i class="fas fa-star text-primary"></i>
-          ${show.vote_average}
+          ${show.vote_average} / 10
         </p>
-        <p class="text-muted">Release Date: ${show.release_date}</p>
+        <p class="text-muted">First Air Date: ${show.first_air_date
+          .split('-')
+          .reverse()
+          .join('.')}</p>
         <p>
         ${show.overview}
         </p>
@@ -202,17 +205,15 @@ async function getShowDetails() {
       </div>
     </div>
     <div class="details-bottom">
-      <h2>show Info</h2>
+      <h2>Show Info</h2>
       <ul>
-        <li><span class="text-secondary">Budget:</span> ${numberWithCommas(
-          show.budget
-        )}</li>
-        <li><span class="text-secondary">Revenue:</span> ${numberWithCommas(
-          show.revenue
-        )}</li>
-        <li><span class="text-secondary">Runtime:</span> ${
-          show.runtime
-        } minutes</li>
+        <li><span class="text-secondary">Number of episodes:</span>
+        ${show.number_of_episodes}</li>
+        <li><span class="text-secondary">Number of seasons:</span>
+        ${show.number_of_seasons}</li>
+        <li><span class="text-secondary">Last Episode to Air:</span>
+        ${show.last_episode_to_air.name}
+        </li>
         <li><span class="text-secondary">Status:</span> ${show.status}</li>
       </ul>
       <h4>Production Companies</h4>
@@ -295,8 +296,9 @@ function init() {
       console.log('Movie Details');
       getMovieDetails();
       break;
-    case '/shows-details.html':
-      console.log('TV Shows Details');
+    case '/show-details.html':
+      console.log('TV Show Details');
+      getTVShowDetails();
       break;
     case '/search.html':
       console.log('Search');
