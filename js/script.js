@@ -99,13 +99,17 @@ async function getMovieDetails() {
         <li><span class="text-secondary">Revenue:</span> ${numberWithCommas(
           movie.revenue
         )}</li>
-        <li><span class="text-secondary">Runtime:</span> ${movie.runtime}</li>
+        <li><span class="text-secondary">Runtime:</span> ${
+          movie.runtime
+        } minutes</li>
         <li><span class="text-secondary">Status:</span> ${movie.status}</li>
       </ul>
       <h4>Production Companies</h4>
-      <div class="list-group">${movie.production_companies
-        .map((company) => `<li>${company.name}</li>`)
-        .join('')}</div>
+      <div class="list-group">
+      ${movie.production_companies
+        .map((company) => `<span>${company.name}, </span>`)
+        .join('')}
+      </div>
     </div>
   `;
   document.getElementById('movie-details').appendChild(div);
