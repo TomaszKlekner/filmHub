@@ -54,7 +54,7 @@ async function getPopularMovies() {
 
 // Fetch TV shows
 async function getTVShows() {
-  const { results } = await 'tv/top_rated';
+  const { results } = await fetchAPIData('tv/top_rated');
 
   console.log(results);
 
