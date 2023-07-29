@@ -54,7 +54,7 @@ async function getPopularMovies() {
 
 // Fetch TV shows
 async function getTVShows() {
-  const { results } = await fetchAPIData('tv/top_rated');
+  const { results } = await 'tv/top_rated';
 
   console.log(results);
 
@@ -249,6 +249,56 @@ function displayBackgroundImage(type, backgroundPath) {
   }
 }
 
+// Display the slider Movies
+async function displaySlider() {
+  const { results } = await fetchAPIData(`movie/now_playing`, options);
+
+  results.forEach((result) => {
+    const div = document.createElement('div');
+    div.classList.add('swiper-slide');
+
+    div.innerHTML = `
+      <a href="movie-details.html?id=${result.id}">
+        <img src="https://image.tmdb.org/t/p/w500/${result.poster_path}" alt="${result.title}" />
+      </a>
+      <h4 class="swiper-rating">
+        <i class="fas fa-star text-secondary"></i> ${result.vote_average} / 10
+      </h4>
+    `;
+
+    document.querySelector('.swiper-wrapper').appendChild(div);
+  });
+
+  initSwiper();
+}
+
+// Init Swiper
+function initSwiper() {
+  const swiper = new Swiper('.swiper', {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    freeMode: true,
+    autoplay: false,
+    direction: 'horizontal',
+    loop: true,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+    },
+    breakpoints: {
+      500: {
+        slidesPerView: 2,
+      },
+      700: {
+        slidesPerView: 3,
+      },
+      1200: {
+        slidesPerView: 4,
+      },
+    },
+  });
+}
+
 // Fetch Data from API
 async function fetchAPIData(endpoint) {
   showSpinner();
@@ -286,6 +336,7 @@ function init() {
   switch (global.currentPage) {
     case '/':
     case '/index.html':
+      displaySlider();
       getPopularMovies();
       break;
     case '/shows.html':
@@ -293,11 +344,9 @@ function init() {
       getTVShows();
       break;
     case '/movie-details.html':
-      console.log('Movie Details');
       getMovieDetails();
       break;
     case '/show-details.html':
-      console.log('TV Show Details');
       getTVShowDetails();
       break;
     case '/search.html':
