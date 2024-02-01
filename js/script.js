@@ -252,6 +252,7 @@ function displayBackgroundImage(type, backgroundPath) {
     document.getElementById('show-details').appendChild(overlayDiv);
   }
 }
+
 // Search Movies/Shows
 async function search() {
   const queryString = window.location.search;
@@ -343,6 +344,7 @@ function highlightActiveLink() {
     }
   });
 }
+
 // Custom Alert function
 function showAlert(message, className) {
   const alertEl = document.createElement('div');
@@ -379,7 +381,7 @@ function init() {
       getTVShowDetails();
       break;
     case '/search.html':
-      console.log('Search');
+      search();
       break;
     default:
       console.log('Home');
