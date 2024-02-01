@@ -62,8 +62,6 @@ async function getPopularMovies() {
 async function getTVShows() {
   const { results } = await fetchAPIData('tv/top_rated');
 
-  console.log(results);
-
   results.forEach((show) => {
     const div = document.createElement('div');
     div.classList.add('card');
