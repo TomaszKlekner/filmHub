@@ -254,6 +254,20 @@ function displayBackgroundImage(type, backgroundPath) {
     document.getElementById('show-details').appendChild(overlayDiv);
   }
 }
+// Search Movies/Shows
+async function search() {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+
+  global.search.type = urlParams.get('type');
+  global.search.term = urlParams.get('search-term');
+
+  if (global.search.term !== '' && global.search.term !== null) {
+    // @todo - mare a request and display results
+  } else {
+    showAlert('Enter a search tearm');
+  }
+}
 
 // Display the slider Movies
 async function displaySlider() {
