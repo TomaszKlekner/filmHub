@@ -17,6 +17,9 @@ body {
   background: var(--color-primary);
   color: #fff;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 a {
@@ -76,6 +79,10 @@ ul {
   width: 100%;
   margin: 0 auto;
   padding: 0 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .main-header .container {
@@ -152,6 +159,7 @@ ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: row;
 }
 
 .main-footer .container .logo {
@@ -328,16 +336,15 @@ section h2 {
 
 /* Alert */
 .alert {
-  background: red;
   padding: 10px 20px;
   margin-bottom: 20px;
   border-radius: 5px;
 }
 
-.alert-success {
+.success {
   background: green;
 }
 
-.alert-error {
+.error {
   background: red;
 }
